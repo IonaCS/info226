@@ -4,6 +4,7 @@ General
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 body {
@@ -17,9 +18,17 @@ body {
 Body
 ***************************************************/
 
-body{
+body {
   	margin: 10% auto;
   	width: 50%;
  	border: 3px solid #efe;
  	padding: 10px 40px 30px;
+}
+
+#loginForm {
+	margin: 10px auto;
+}
+
+button {
+	margin: 20px 0px 10px;
 }
