@@ -10,20 +10,17 @@ a {
 body {
     font-family: 'Muli', sans-serif;
     background: #d0dbd0;
+    margin: 10% auto;
+  	width: 50%;
+ 	border: 3px solid #efe;
+ 	padding: 10px 40px 30px;
 }
 
 
 
 /***************************************************
-Body
+Section
 ***************************************************/
-
-body {
-  	margin: 10% auto;
-  	width: 50%;
- 	border: 3px solid #efe;
- 	padding: 10px 40px 30px;
-}
 
 #loginForm {
 	margin: 10px auto;
