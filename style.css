@@ -29,6 +29,7 @@ ul {
 }
 
 
+
 /***************************************************
 Section
 ***************************************************/
@@ -38,5 +39,10 @@ Section
 }
 
 button {
-	margin: 20px 0px 10px;
+	margin: 15px 0px 5px;
+	padding: 5px 15px;
+	border-radius: 10px;
+	border-style: double solid 2px;
+	border-color: #888;
+	background: #eee;
 }
