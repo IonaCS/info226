@@ -5,22 +5,23 @@
 		<!--<link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans|Prosto+One" rel="stylesheet">-->
 		<link rel="stylesheet" href="style.css">
 		<script src="script.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	</head>
-	<body>
-		<header> 
+	<body ng-app="">
+		<header>
 			<h1>TRACK</h1>
 			<h2>NZTA</h2>
 		</header>
 		<section>
 			<form>
-			    <label for="uname"><b>Username</b></label>
-			    <input type="text" placeholder="Enter Username" name="uname" id="loginForm" required> <br>
-			    <label for="psw"><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="psw" id="loginForm" required> <br>
+			    <label>Username</label>
+			    <input type="text" placeholder="Enter Username" ng-model="username" id="loginForm" required> <br>
+			    <label>Password</label>
+			    <input type="password" placeholder="Enter Password" ng-model="password" id="loginForm" required> <br>
 			    <button type="submit">
 			    	<a href="index.html">Login</a>
 			    	<!--Remember to remove this href when appropriate code added!!!-->
-			    </button> 
+			    </button>
 			</form>
 		</section>
 	</body>
