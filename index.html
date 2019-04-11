@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="trackApp">
+
 	<head>
+		<meta charset="utf-8" />
 		<title>TRACK</title>
 		<!--<link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans|Prosto+One" rel="stylesheet">-->
 		<link rel="stylesheet" href="style.css">
-		<script src="script.js"></script>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="script.js"></script>
 	</head>
-	<body><!--ng-app="" -->
+
+	<body ng-controller="MainCtrl">
 		<header>
 			<h1>TRACK</h1>
 			<h2>NZTA Road Maintenance Application</h2>
+			<p>Hello {{name}}!</p>
 			<nav>
 				<a href="roads.html" title = "Click to view roads and more">
 					<button>Roads</button>
@@ -23,4 +28,5 @@
 		<section >
 		</section>
 	</body>
+
 </html>
