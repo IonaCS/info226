@@ -1,26 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="trackApp">
+
 	<head>
+		<meta charset="utf-8" />
 		<title>TRACK</title>
 		<!--<link href="https://fonts.googleapis.com/css?family=Audiowide|Open+Sans|Prosto+One" rel="stylesheet">-->
 		<link rel="stylesheet" href="style.css">
-		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="script.js"></script>
 	</head>
-	<body><!--ng-app="" -->
+
+	<body ng-controller="mainCtrl">
 		<header>
 			<h1>TRACK</h1>
 			<h2>NZTA Road Maintenance Application</h2>
-			<nav>
-				<a href="roads.html" title = "Click to view roads and more">
-					<button>Roads</button>
-				</a>
-				<a href="projects.html" title = "Click to open a project and more">
-					<button>Projects</button>
-				</a>
-			</nav>
 		</header>
-		<section >
-		</section>
+
+		<!----------------------  
+				Login 
+		----------------------->
+		<div ng-show="login">
+			<form>
+			    <label>Username</label>
+			    <input type="text" placeholder="Enter Username" ng-model="username" id="loginForm" required> <br>
+			    <label>Password</label>
+			    <input type="password" placeholder="Enter Password" ng-model="password" id="loginForm" required> <br>
+			    <button ng-click="checkLogin()" type="submit"> Login </button>
+			    <p>{{feedback}}</p>
+			</form>
+		</div>
+
+		<!---------------------- 
+				Menu
+		----------------------->
+		<div ng-show="menu"> 
+			<p>Hello {{name}}!</p>
+			<button>Roads</button> <br>
+			<button>Projects</button>
+		</div>
+
 	</body>
+
 </html>
