@@ -3,13 +3,14 @@ var app = angular.module('trackApp', []);
 
 app.controller('mainCtrl', function($scope, $http) {
 
-	
+
 	/****************************************************
-		Hides/shows different pages	
+		Hides/shows different pages
 	****************************************************/
 	$scope.login = true
 	$scope.menu = false
-
+	$scope.roadsList = false
+	$scope.projectList = false
 
 
 	/****************************************************
@@ -28,10 +29,15 @@ app.controller('mainCtrl', function($scope, $http) {
 	  				$scope.name = response.data.Users[i].LoginName;
 	  			} else  if ($scope.username != null && $scope.password != null) {
 	  				$scope.feedback = 'Sorry, those details were not correct.';
-	  			};    		
+	  			};
 	  		}
 		});
 	};
+
+	$scope.showRoadList = function() {
+						$scope.roadsList = true;
+
+		};
 
 
 });
