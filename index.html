@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>TRACK</title>
-		< !--<link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">-- >
+		<link href="https://fonts.googleapis.com/css?family=Carter+One|Handlee" rel="stylesheet">
 		<link rel="stylesheet" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 		<script src="script.js"></script>
@@ -13,11 +13,11 @@
 	<body ng-controller="mainCtrl">
 		<header>
 			<h1>TRACK</h1>
-			<h2>NZTA Road Maintenance Application</h2>
+			<h2>NZTA Road Maintenance</h2>
 		</header>
 
-		<!----------------------  
-				Login 
+		<!----------------------
+				Login
 		----------------------->
 		<div ng-show="login">
 			<form>
@@ -30,15 +30,24 @@
 			</form>
 		</div>
 
-		<!---------------------- 
+		<!----------------------
 				Menu
 		----------------------->
-		<div ng-show="menu"> 
+		<div ng-show="menu">
 			<p>Hello {{name}}!</p>
-			<button>Roads</button> <br>
-			<button>Projects</button>
+			<button ng-click = "showRoadList()">See Roads</button><br>
+			<button>Add New Road</button><br>
+			<div ng-show="roadsList">
+				<p>SH1 South</p>
+				<p>Kapiti</p>
+				<p>State Highway</p>
+				<p>Kapiti Interchange</p>
+			</div>
+			<button >See Projects</button><br>
+			<button >Add New Project</button><br>
+			<div ng-show="projectList">
+			</div>
 		</div>
 
 	</body>
-
 </html>
