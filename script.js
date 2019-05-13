@@ -19,7 +19,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.checkLogin = function() {
 		var user_list = "https://track.sim.vuw.ac.nz/api/sammoniona/user_list.json"
 		$http.get(user_list).then (function (response) {
-			//Iterate through server for correct logins,
+			//Iterate through server list of correct logins,
 			//Then compare with username/password entered:
 		    num_of_users = response.data.Users.length
 		    for (var i = 0; i < num_of_users; i++) {
@@ -35,9 +35,14 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 	$scope.showRoadList = function() {
-						$scope.roadsList = true;
-
-		};
+		// IF list of roads hidden, show. 
+		// ELSE IF list visible, hide:
+		if ($scope.roadsList == false) {
+			$scope.roadsList = true;
+		} else if ($scope.roadsList == true) {
+			$scope.roadsList = false;
+		}
+	};
 
 
 });
