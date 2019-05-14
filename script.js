@@ -35,7 +35,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 	$scope.showRoadList = function() {
-		// IF list of roads hidden, show.
+		// IF list of roads hidden, show. 
 		// ELSE IF list visible, hide:
 		if ($scope.roadsList == false) {
 			$scope.roadsList = true;
@@ -46,13 +46,3 @@ app.controller('mainCtrl', function($scope, $http) {
 
 
 });
-
-/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
-function myFunction() {
-  var x = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
