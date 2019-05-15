@@ -8,7 +8,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		Hides/shows different pages
 	****************************************************/
 	$scope.login = true
-	$scope.menu = true
+	$scope.menu = false
 	$scope.roadList = false
 	$scope.projectList = false
 
@@ -64,13 +64,27 @@ app.controller('mainCtrl', function($scope, $http) {
 
 
 	$scope.showProjectList = function() {
-		// IF list of roads hidden, show. 
-		// ELSE IF list visible, hide:
-		if ($scope.projectList == false) {
-			$scope.projectList = true;
-		} else if ($scope.projectList == true) {
-			$scope.projectList = false;
-		}
+		//Get project info from server:
+		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
+	    $http.get(project_dir).then (function (response) {
+			//Iterate through list of projects on server:
+		    num_of_projects = response.data.Projects.length;
+		    for (var i = 0; i < num_of_projects; i++) {
+		    	// IF project list hidden, bind project info and show.
+				// ELSE IF list visible, hide:
+				console.log(response.data.Projects[i])
+		        if ($scope.projectList == false) {
+					$scope.projectList = true;
+					$scope.ID = response.data.Projects[i].ID;
+					$scope.roadID = response.data.Projects[i].Road;
+					$scope.projectType = response.data.Projects[i].Name;
+					$scope.status = response.data.Projects[i].Status;
+		        } else if ($scope.projectList == true) {
+		        	$scope.projectList = false;
+		        }
+		    };
+		});
 	};
+
 
 });
