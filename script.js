@@ -8,8 +8,8 @@ app.controller('mainCtrl', function($scope, $http) {
 		Hides/shows different pages
 	****************************************************/
 	$scope.login = true
-	$scope.menu = false
-	$scope.roadsList = false
+	$scope.menu = true
+	$scope.roadList = false
 	$scope.projectList = false
 
 
@@ -34,15 +34,30 @@ app.controller('mainCtrl', function($scope, $http) {
 		});
 	};
 
+
+	/****************************************************
+		Show/hide roads/projects lists
+	****************************************************/
 	$scope.showRoadList = function() {
 		// IF list of roads hidden, show. 
 		// ELSE IF list visible, hide:
-		if ($scope.roadsList == false) {
-			$scope.roadsList = true;
-		} else if ($scope.roadsList == true) {
-			$scope.roadsList = false;
+		if ($scope.roadList == false) {
+			$scope.roadList = true;
+		} else if ($scope.roadList == true) {
+			$scope.roadList = false;
 		}
 	};
+
+	$scope.showProjectList = function() {
+		// IF list of roads hidden, show. 
+		// ELSE IF list visible, hide:
+		if ($scope.projectList == false) {
+			$scope.projectList = true;
+		} else if ($scope.projectList == true) {
+			$scope.projectList = false;
+		}
+	};
+
 
 
 });
