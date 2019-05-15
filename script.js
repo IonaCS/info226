@@ -17,7 +17,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		Check login details correct
 	****************************************************/
 	$scope.checkLogin = function() {
-		var user_list = "https://track.sim.vuw.ac.nz/api/sammoniona/user_list.json"
+		var user_list = "https://track.sim.vuw.ac.nz/api/sammoniona/user_list.json";
 		$http.get(user_list).then (function (response) {
 			//Iterate through server list of correct logins,
 			//Then compare with username/password entered:
@@ -39,14 +39,29 @@ app.controller('mainCtrl', function($scope, $http) {
 		Show/hide roads/projects lists
 	****************************************************/
 	$scope.showRoadList = function() {
-		// IF list of roads hidden, show. 
-		// ELSE IF list visible, hide:
-		if ($scope.roadList == false) {
-			$scope.roadList = true;
-		} else if ($scope.roadList == true) {
-			$scope.roadList = false;
-		}
+		//Get road info from server:
+		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
+	    $http.get(road_dir).then (function (response) {
+			//Iterate through list of roads on server:
+		    num_of_roads = response.data.Roads.length;
+		    for (var i = 0; i < num_of_roads; i++) {
+		    	// IF road list hidden, bind road info and show.
+				// ELSE IF list visible, hide:
+		        if ($scope.roadList == false) {
+					$scope.roadList = true;
+					$scope.ID = response.data.Roads[i].ID;
+					$scope.roadName = response.data.Roads[i].Code;
+					$scope.roadType = response.data.Roads[i].Type;
+					$scope.section = response.data.Roads[i].Section;
+					$scope.location = response.data.Roads[i].Location;
+					$scope.latLon = response.data.Roads[i].GPS;
+		        } else if ($scope.roadList == true) {
+		        	$scope.roadList = false;
+		        }
+		    };
+		});
 	};
+
 
 	$scope.showProjectList = function() {
 		// IF list of roads hidden, show. 
@@ -57,7 +72,5 @@ app.controller('mainCtrl', function($scope, $http) {
 			$scope.projectList = false;
 		}
 	};
-
-
 
 });
