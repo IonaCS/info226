@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>TRACK</title>
-		<link href="https://fonts.googleapis.com/css?family=Cairo|Montserrat" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Carter+One|Handlee" rel="stylesheet">
 		<link rel="stylesheet" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 		<script src="script.js"></script>
@@ -34,9 +34,25 @@
 				Menu
 		----------------------->
 		<div ng-show="menu">
-			<p>Hello {{User}}!</p>
-			<button>See Roads</button><button style = "margin-left: 30px">See Projects</button><br>
-			<button>Add New Road</button><button  style = "margin-left: 9px">Add New Project</button>
+			<p>Hello {{name}}!</p>
+			<button ng-click = "showRoadList()">See Roads</button>
+			<button>Add New Road</button><br>
+			<div ng-show="roadList">
+				Road ID:{{ID}}<br>
+				Code: {{roadName}}<br>
+				Type: {{roadType}}<br>
+				Section: {{section}}<br>
+				Location: {{location}}<br>
+				GPS: {{latLon}}
+			</div>
+			<button ng-click = "showProjectList()">See Projects</button>
+			<button>Add New Project</button><br>
+			<div ng-show="projectList">
+				Project ID:{{ID}}<br>
+				Road ID: {{roadID}}<br>
+				Project Type: {{projectType}}<br>
+				Status: {{status}}<br>
+			</div>
 		</div>
 
 	</body>

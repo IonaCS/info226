@@ -1,2 +1,4 @@
 # info226
-Info226 project
+Group project for Info226
+
+Contributers: Gemmasingh11, tylereagle0 and IonaCS
