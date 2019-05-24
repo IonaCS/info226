@@ -11,6 +11,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.menu = false
 	$scope.roadList = false
 	$scope.projectList = false
+	$scope.newRoad = false
 
 
 	/****************************************************
@@ -60,8 +61,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		        }
 		    };
 		});
-	};
-
+	}; //ng-repeat
 
 	$scope.showProjectList = function() {
 		//Get project info from server:
@@ -72,7 +72,6 @@ app.controller('mainCtrl', function($scope, $http) {
 		    for (var i = 0; i < num_of_projects; i++) {
 		    	// IF project list hidden, bind project info and show.
 				// ELSE IF list visible, hide:
-				console.log(response.data.Projects[i])
 		        if ($scope.projectList == false) {
 					$scope.projectList = true;
 					$scope.ID = response.data.Projects[i].ID;
@@ -85,6 +84,23 @@ app.controller('mainCtrl', function($scope, $http) {
 		    };
 		});
 	};
+
+
+	/****************************************************
+		Add roads/projects
+	****************************************************/
+	$scope.showNewRoadForm = function() {
+		console.log(1)
+		if ($scope.newRoad == true) {
+			$scope.newRoad = false
+			console.log(2)
+		} else {
+			$scope.newRoad = true
+			console.log(3)
+		}
+	};
+
+
 
 
 });
