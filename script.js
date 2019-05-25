@@ -48,13 +48,13 @@ app.controller('mainCtrl', function($scope, $http) {
 		    	// IF road list hidden, bind road info and show.
 				// ELSE IF list visible, hide:
 		        if ($scope.roadList == false) {
-					$scope.roadList = true;
-					$scope.ID = response.data.Roads[i].ID;
-					$scope.roadName = response.data.Roads[i].Code;
-					$scope.roadType = response.data.Roads[i].Type;
-					$scope.section = response.data.Roads[i].Section;
-					$scope.location = response.data.Roads[i].Location;
-					$scope.latLon = response.data.Roads[i].GPS;
+							$scope.roadList = true;
+							$scope.ID = response.data.Roads[i].ID;
+							$scope.roadName = response.data.Roads[i].Code;
+							$scope.roadType = response.data.Roads[i].Type;
+							$scope.section = response.data.Roads[i].Section;
+							$scope.location = response.data.Roads[i].Location;
+							$scope.latLon = response.data.Roads[i].GPS;
 		        } else if ($scope.roadList == true) {
 		        	$scope.roadList = false;
 		        }
@@ -74,11 +74,11 @@ app.controller('mainCtrl', function($scope, $http) {
 				// ELSE IF list visible, hide:
 				console.log(response.data.Projects[i])
 		        if ($scope.projectList == false) {
-					$scope.projectList = true;
-					$scope.ID = response.data.Projects[i].ID;
-					$scope.roadID = response.data.Projects[i].Road;
-					$scope.projectType = response.data.Projects[i].Name;
-					$scope.status = response.data.Projects[i].Status;
+							$scope.projectList = true;
+							$scope.ID = response.data.Projects[i].ID;
+							$scope.roadID = response.data.Projects[i].Road;
+							$scope.projectType = response.data.Projects[i].Name;
+							$scope.status = response.data.Projects[i].Status;
 		        } else if ($scope.projectList == true) {
 		        	$scope.projectList = false;
 		        }
