@@ -16,6 +16,7 @@
 			<h2>NZTA Road Maintenance</h2>
 		</header>
 
+
 		<!----------------------
 				Login
 		----------------------->
@@ -30,13 +31,17 @@
 			</form>
 		</div>
 
+
 		<!----------------------
-				Menu
+				Main
 		----------------------->
 		<div ng-show="menu">
 			<p>Hello {{name}}!</p>
+
+			<!----------------------
+					Roads
+			----------------------->
 			<button ng-click = "showRoadList()">See Roads</button>
-			<button>Add New Road</button><br>
 			<div ng-show="roadList">
 				Road ID:{{ID}}<br>
 				Code: {{roadName}}<br>
@@ -45,6 +50,28 @@
 				Location: {{location}}<br>
 				GPS: {{latLon}}
 			</div>
+
+			<button ng-click = "showNewRoadForm()">Add New Road</button><br>
+			<div ng-show="newRoad">
+				<label>ID</label>
+			    <input type="text" placeholder="Road ID" ng-model="a" id="" required> <br>
+			    <label>Name</label>
+			    <input type="text" placeholder="Road Name" ng-model="a" id="" required> <br>
+			    <label>Type</label>
+			    <input type="text" placeholder="Road Type" ng-model="a" id="" required> <br>
+			    <label>Section</label>
+			    <input type="text" placeholder="Road Section" ng-model="a" id="" required> <br>
+			    <label>Location</label>
+			    <input type="text" placeholder="Road Location" ng-model="a" id="" required> <br>
+			    <label>Coordinates</label>
+			    <input type="text" placeholder="Latitude" ng-model="a" id="" required> <br>
+			    <input type="text" placeholder="Longitude" ng-model="a" id="" required> <br>
+			    <button ng-click="checkLogin()" type="submit"> OK </button>
+			</div>
+
+			<!----------------------
+					Projcts
+			----------------------->
 			<button ng-click = "showProjectList()">See Projects</button>
 			<button>Add New Project</button><br>
 			<div ng-show="projectList">
