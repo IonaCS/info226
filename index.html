@@ -78,13 +78,29 @@
 					Projcts
 			----------------------->
 			<button ng-click = "showProjectList()">See Projects</button>
-			<button>Add New Project</button><br>
 			<div ng-show="projectList">
 				Project ID:{{ID}}<br>
 				Road ID: {{roadID}}<br>
 				Project Type: {{projectType}}<br>
 				Status: {{status}}<br>
 			</div>
+
+			<button ng-click = "showNewProjectForm()">Add New Project</button><br>
+			<div id="newProjectForm" ng-show="newProject">
+				<label>ID</label><br>
+			    <input type="text" placeholder="Project ID" ng-model="a" required> <br>
+			    <label>Associated Road</label><br>
+			    <input type="text" placeholder="Road ID" ng-model="a" required> <br>
+			    <label>Type</label><br>
+			    <input type="text" placeholder="Project Type" ng-model="a" required> <br>
+			    <label>Start Date</label><br>
+			    <input type="date" ng-model="a" required> <br>
+			    <label>Contractor</label><br>
+			    <input type="text" placeholder="Contractor Company" ng-model="a" required> <br>
+			    <button ng-click="a()" type="submit"> OK </button>
+			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
+			</div>
+
 		</div>
 
 	</body>

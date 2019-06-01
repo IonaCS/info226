@@ -12,6 +12,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.roadList = false
 	$scope.projectList = false
 	$scope.newRoad = false
+	$scope.newProject = false
 
 
 	/****************************************************
@@ -101,10 +102,20 @@ app.controller('mainCtrl', function($scope, $http) {
 		}
 	};
 
-
+	$scope.showNewProjectForm = function() {
+		if ($scope.newProject == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newProject = true;
+		} else if ($scope.newProject == true) {
+			$scope.newProject = false;
+		}
+	};
 
 	$scope.closeForm = function() {
 		$scope.newRoad = false;
+		$scope.newProject = false;
 		document.getElementById('overlay').remove();
 	};
 
