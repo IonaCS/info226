@@ -51,6 +51,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		        if ($scope.roadList == false) {
 					$scope.roadList = true;
 					$scope.ID = response.data.Roads[i].ID;
+					console.log($scope.ID)
 					$scope.roadName = response.data.Roads[i].Code;
 					$scope.roadType = response.data.Roads[i].Type;
 					$scope.section = response.data.Roads[i].Section;
@@ -90,17 +91,29 @@ app.controller('mainCtrl', function($scope, $http) {
 		Add roads/projects
 	****************************************************/
 	$scope.showNewRoadForm = function() {
-		console.log(1)
-		if ($scope.newRoad == true) {
-			$scope.newRoad = false
-			console.log(2)
-		} else {
-			$scope.newRoad = true
-			console.log(3)
+		if ($scope.newRoad == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newRoad = true;
+		} else if ($scope.newRoad == true) {
+			$scope.newRoad = false;
 		}
 	};
 
 
 
+	$scope.closeForm = function() {
+		$scope.newRoad = false;
+		document.getElementById('overlay').remove();
+	};
+
+
+	
+
+
+
 
 });
+
+
