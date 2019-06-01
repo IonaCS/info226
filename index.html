@@ -18,7 +18,9 @@
 
 
 		<!----------------------
+		------------------------
 				Login
+		------------------------
 		----------------------->
 		<div ng-show="login">
 			<form>
@@ -33,9 +35,11 @@
 
 
 		<!----------------------
+		------------------------
 				Main
+		------------------------
 		----------------------->
-		<div ng-show="menu">
+		<div id="mainMenu" ng-show="menu">
 			<p>Hello {{name}}!</p>
 
 			<!----------------------
@@ -52,21 +56,22 @@
 			</div>
 
 			<button ng-click = "showNewRoadForm()">Add New Road</button><br>
-			<div ng-show="newRoad">
-				<label>ID</label>
+			<div id="newRoadForm" ng-show="newRoad">
+				<label>ID</label><br>
 			    <input type="text" placeholder="Road ID" ng-model="a" id="" required> <br>
-			    <label>Name</label>
+			    <label>Name</label><br>
 			    <input type="text" placeholder="Road Name" ng-model="a" id="" required> <br>
-			    <label>Type</label>
+			    <label>Type</label><br>
 			    <input type="text" placeholder="Road Type" ng-model="a" id="" required> <br>
-			    <label>Section</label>
+			    <label>Section</label><br>
 			    <input type="text" placeholder="Road Section" ng-model="a" id="" required> <br>
-			    <label>Location</label>
+			    <label>Location</label><br>
 			    <input type="text" placeholder="Road Location" ng-model="a" id="" required> <br>
-			    <label>Coordinates</label>
+			    <label>Coordinates</label><br>
 			    <input type="text" placeholder="Latitude" ng-model="a" id="" required> <br>
 			    <input type="text" placeholder="Longitude" ng-model="a" id="" required> <br>
-			    <button ng-click="checkLogin()" type="submit"> OK </button>
+			    <button ng-click="a()" type="submit"> OK </button>
+			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
 			</div>
 
 			<!----------------------
