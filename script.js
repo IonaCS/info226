@@ -11,6 +11,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.menu = false
 	$scope.roadList = false
 	$scope.projectList = false
+	$scope.newRoad = false
 
 
 	/****************************************************
@@ -46,7 +47,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		    num_of_roads = response.data.Roads.length;
 		    for (var i = 0; i < num_of_roads; i++) {
 		    	// IF road list hidden, bind road info and show.
-				// ELSE IF list visible, hide:
+					// ELSE IF list visible, hide:
 		        if ($scope.roadList == false) {
 							$scope.roadList = true;
 							$scope.ID = response.data.Roads[i].ID;
@@ -60,8 +61,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		        }
 		    };
 		});
-	};
-
+	}; //ng-repeat
 
 	$scope.showProjectList = function() {
 		//Get project info from server:
@@ -71,8 +71,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		    num_of_projects = response.data.Projects.length;
 		    for (var i = 0; i < num_of_projects; i++) {
 		    	// IF project list hidden, bind project info and show.
-				// ELSE IF list visible, hide:
-				console.log(response.data.Projects[i])
+					// ELSE IF list visible, hide:
 		        if ($scope.projectList == false) {
 							$scope.projectList = true;
 							$scope.ID = response.data.Projects[i].ID;
@@ -87,4 +86,18 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 
+	/****************************************************
+		Add roads/projects
+	****************************************************/
+	$scope.showNewRoadForm = function() {
+		//Get project info from server:
+		// This block of code will retrieve the course JSON file from the server and displays it.
+	  // This can be used to check if the server has updated correctly.
+	  $scope.target = "https://caab.sim.vuw.ac.nz/api/tutortestuser/course_directory.json";
+	    $http.get($scope.target).then(function sucessCall(response) {
+	        $scope.myData = response.data.courses;
+	      }, function errorCall() {
+	        $scope.feedback = "Failed to load file";
+	      }
+	    );
 });
