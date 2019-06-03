@@ -53,29 +53,23 @@ app.controller('mainCtrl', function($scope, $http) {
 			});		
 		} else if ($scope.roadList == true) {
 	        $scope.roadList = false;
-		}
-	}
+		};
+	};
 
 	$scope.showProjectList = function() {
-		//Get project info from server:
-		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
-	    $http.get(project_dir).then (function (response) {
-			//Iterate through list of projects on server:
-		    num_of_projects = response.data.Projects.length;
-		    for (var i = 0; i < num_of_projects; i++) {
-		    	// IF project list hidden, bind project info and show.
-				// ELSE IF list visible, hide:
-		        if ($scope.projectList == false) {
-					$scope.projectList = true;
-					$scope.ID = response.data.Projects[i].ID;
-					$scope.roadID = response.data.Projects[i].Road;
-					$scope.projectType = response.data.Projects[i].Name;
-					$scope.status = response.data.Projects[i].Status;
-		        } else if ($scope.projectList == true) {
-		        	$scope.projectList = false;
-		        }
-		    };
-		});
+		// IF project list hidden, bind project info and show,
+		// ELSE IF list visible, hide:
+		if ($scope.projectList == false) {
+			$scope.projectList = true;
+			//Get project info from server:
+			var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
+	    	$http.get(project_dir).then (function (response) {
+	    		//Assign the info to the ng-repeat in the html:
+	    		$scope.listOfProjects = response.data.Projects;
+			});		
+		} else if ($scope.projectList == true) {
+	        $scope.projectList = false;
+		};		
 	};
 
 

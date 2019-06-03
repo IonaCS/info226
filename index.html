@@ -54,7 +54,7 @@
 					Section: {{x.Section}} <br>
 					Location: {{x.Location}} <br>
 					GPS: {{x.GPS}}
-				</p><br>
+				</p>
 			</div>
 
 			<button ng-click = "showNewRoadForm()">Add New Road</button><br>
@@ -81,10 +81,12 @@
 			----------------------->
 			<button ng-click = "showProjectList()">See Projects</button>
 			<div ng-show="projectList">
-				Project ID:{{ID}}<br>
-				Road ID: {{roadID}}<br>
-				Project Type: {{projectType}}<br>
-				Status: {{status}}<br>
+				<p ng-repeat="x in listOfProjects">
+					Project ID: {{x.ID}} <br>
+					Road ID: {{x.Road}} <br>
+					Project Type: {{x.Name}} <br>
+					Status: {{x.Status}}
+				</p>
 			</div>
 
 			<button ng-click = "showNewProjectForm()">Add New Project</button><br>
