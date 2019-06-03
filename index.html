@@ -45,7 +45,10 @@
 				Type<br><input type = text ng-model="roadType"><br>
 				Section<br><input type = text ng-model="section"><br>
 				Location<br><input type = text ng-model="location"><br>
-				GPS<br><input type = text ng-model="latLon"><br><br>
+				GPS<br><input type = text ng-model="latLon"><br>
+				<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
+				<!--set up alert to make sure the delete doesn't happen automatically-->
+				<button ng-click = "deleteRoad(Roads)">Delete Road</button><br><br>
 				Road List:
 				<ul>
 					<li ng-repeat="Roads in myRoads">Road ID: {{Roads.ID}} <button ng-click = "editRoadInfo(Roads)">Edit Info</button></li>
