@@ -40,37 +40,133 @@ app.controller('mainCtrl', function($scope, $http) {
 	/****************************************************
 		Show/hide roads/projects lists
 	****************************************************/
-	$scope.showRoadList = function() {
-		// IF road list hidden, bind road info and show,
-		// ELSE IF list visible, hide:
-		if ($scope.roadList == false) {
-			$scope.roadList = true;
-			//Get road info from server:
-			var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
-	    	$http.get(road_dir).then (function (response) {
-	    		//Assign the info to the ng-repeat in the html:
-	    		$scope.listOfRoads = response.data.Roads;
-			});		
-		} else if ($scope.roadList == true) {
-	        $scope.roadList = false;
-		};
+
+	// $scope.showRoadList = function() {
+	// 	// IF road list hidden, bind road info and show,
+	// 	// ELSE IF list visible, hide:
+	// 	if ($scope.roadList == false) {
+	// 		$scope.roadList = true;
+	// 		//Get road info from server:
+	// 		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
+	//     	$http.get(road_dir).then (function (response) {
+	//     		//Assign the info to the ng-repeat in the html:
+	//     		$scope.listOfRoads = response.data.Roads;
+	// 		});		
+	// 	} else if ($scope.roadList == true) {
+	//         $scope.roadList = false;
+	// 	};
+	// };
+
+	// $scope.showProjectList = function() {
+	// 	// IF project list hidden, bind project info and show,
+	// 	// ELSE IF list visible, hide:
+	// 	if ($scope.projectList == false) {
+	// 		$scope.projectList = true;
+	// 		//Get project info from server:
+	// 		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
+	//     	$http.get(project_dir).then (function (response) {
+	//     		//Assign the info to the ng-repeat in the html:
+	//     		$scope.listOfProjects = response.data.Projects;
+	// 		});		
+	// 	} else if ($scope.projectList == true) {
+	//         $scope.projectList = false;
+	// 	};		
+
+
+	// This block of code will retrieve the course JSON file from the server and displays it.
+	// This can be used to check if the server has updated correctly.
+	$scope.showRoadList = function(){
+		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
+			$http.get(road_dir).then(function sucessCall(response) {
+					$scope.myRoads = response.data.Roads;
+					if ($scope.roadList == false) {
+						$scope.roadList = true;
+					} else if ($scope.roadList == true) {
+						$scope.roadList = false;
+					}
+				}, function errorCall() {
+					$scope.feedback = "Failed to load file";
+				}
+			);
 	};
 
-	$scope.showProjectList = function() {
-		// IF project list hidden, bind project info and show,
-		// ELSE IF list visible, hide:
-		if ($scope.projectList == false) {
-			$scope.projectList = true;
-			//Get project info from server:
-			var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
-	    	$http.get(project_dir).then (function (response) {
-	    		//Assign the info to the ng-repeat in the html:
-	    		$scope.listOfProjects = response.data.Projects;
-			});		
-		} else if ($scope.projectList == true) {
-	        $scope.projectList = false;
-		};		
+	$scope.showProjectList = function(){
+		//Get project info from server:
+		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
+			$http.get(project_dir).then(function sucessCall(response) {
+					$scope.myProjects = response.data.Projects;
+					if ($scope.projectList == false) {
+						$scope.projectList = true;
+					} else if ($scope.projectList == true) {
+						$scope.projectList = false;
+					}
+				}, function errorCall() {
+					$scope.feedback = "Failed to load file";
+				}
+			);
 	};
+
+	$scope.editRoadInfo = function(Roads){
+		$scope.ID = Roads.ID;
+		$scope.roadName = Roads.Code;
+		$scope.roadType = Roads.Type;
+		$scope.section =  Roads.Section;
+		$scope.location = Roads.Location;
+		$scope.latLon = Roads.GPS;
+	};
+
+	$scope.editProjInfo = function(Projects){
+		$scope.projID = Projects.ID;
+		$scope.roadID = Projects.Road;
+		$scope.projType = Projects.Name;
+		$scope.status =  Projects.Status;
+	};
+
+	/****************************************************
+		Add roads/projects
+	****************************************************/
+
+	// This section define a new item to post to the server. This can be easily modified to use data from user input
+	// If the ID is new, a new object is created. If the ID is already in use, the existing item will be updated.
+	$scope.addNewRoad = function() {
+		var roadObj = {
+			ID: $scope.ID,
+			Code: $scope.roadName,
+			Type: $scope.roadType,
+			Section: $scope.section,
+			Location: $scope.location,
+			GPS: $scope.latLon,
+		};
+		// This section will post new data to the JSON file on the server
+		var postNewRoad = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.road.json', roadObj);
+		postNewRoad.success(function(data, status, headers, config){
+			$scope.postSuccess = "Posted Sucessfully";
+		});
+		postNewRoad.error(function(data, status, headers, config){
+			$scope.postSuccess = "Failed to post";
+		});
+
+	};
+
+	$scope.addNewProject = function() {
+		var projectObj = {
+			ID: $scope.projID,
+			Road: $scope.roadID,
+			Name: $scope.projType,
+			status: $scope.status,
+		};
+		// This section will post new data to the JSON file on the server
+		var postNewProject = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.project.json', projectObj);
+		postNewProject.success(function(data, status, headers, config){
+			$scope.postSuccess = "Posted Sucessfully";
+		});
+		postNewProject.error(function(data, status, headers, config){
+			$scope.postSuccess = "Failed to post";
+		});
+	};
+
+
+
 
 
 
@@ -108,11 +204,33 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 
-	
+
 
 
 
 
 });
+	/****************************************************
+		Deleting roads/projects
+	****************************************************/
+	/*
+	$scope.deleteRoad = function() {
+		var roadObj = {
+			ID: $scope.ID,
+			Code: $scope.roadName,
+			Type: $scope.roadType,
+			Section: $scope.section,
+			Location: $scope.location,
+			GPS: $scope.latLon,
+		};
 
-
+		// This section will post new data to the JSON file on the server
+		// Unsure as to how the delete works with the URL
+		var postNewRoad = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.<roadid>.json', roadObj);
+		postNewRoad.success(function(data, status, headers, config){
+			$scope.postSuccess = "Posted Sucessfully";
+		});
+		postNewRoad.error(function(data, status, headers, config){
+			$scope.postSuccess = "Failed to post";
+		});
+	}*/
