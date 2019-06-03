@@ -47,12 +47,14 @@
 			----------------------->
 			<button ng-click = "showRoadList()">See Roads</button>
 			<div ng-show="roadList">
-				Road ID:{{ID}}<br>
-				Code: {{roadName}}<br>
-				Type: {{roadType}}<br>
-				Section: {{section}}<br>
-				Location: {{location}}<br>
-				GPS: {{latLon}}
+				<p ng-repeat="x in listOfRoads">
+					ID: {{x.ID}} <br>
+					Code: {{x.Code}} <br>
+					Type: {{x.Type}} <br>
+					Section: {{x.Section}} <br>
+					Location: {{x.Location}} <br>
+					GPS: {{x.GPS}}
+				</p><br>
 			</div>
 
 			<button ng-click = "showNewRoadForm()">Add New Road</button><br>

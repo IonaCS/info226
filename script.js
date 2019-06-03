@@ -41,29 +41,20 @@ app.controller('mainCtrl', function($scope, $http) {
 		Show/hide roads/projects lists
 	****************************************************/
 	$scope.showRoadList = function() {
-		//Get road info from server:
-		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
-	    $http.get(road_dir).then (function (response) {
-			//Iterate through list of roads on server:
-		    num_of_roads = response.data.Roads.length;
-		    for (var i = 0; i < num_of_roads; i++) {
-		    	// IF road list hidden, bind road info and show.
-				// ELSE IF list visible, hide:
-		        if ($scope.roadList == false) {
-					$scope.roadList = true;
-					$scope.ID = response.data.Roads[i].ID;
-					console.log($scope.ID)
-					$scope.roadName = response.data.Roads[i].Code;
-					$scope.roadType = response.data.Roads[i].Type;
-					$scope.section = response.data.Roads[i].Section;
-					$scope.location = response.data.Roads[i].Location;
-					$scope.latLon = response.data.Roads[i].GPS;
-		        } else if ($scope.roadList == true) {
-		        	$scope.roadList = false;
-		        }
-		    };
-		});
-	}; //ng-repeat
+		// IF road list hidden, bind road info and show,
+		// ELSE IF list visible, hide:
+		if ($scope.roadList == false) {
+			$scope.roadList = true;
+			//Get road info from server:
+			var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
+	    	$http.get(road_dir).then (function (response) {
+	    		//Assign the info to the ng-repeat in the html:
+	    		$scope.listOfRoads = response.data.Roads;
+			});		
+		} else if ($scope.roadList == true) {
+	        $scope.roadList = false;
+		}
+	}
 
 	$scope.showProjectList = function() {
 		//Get project info from server:
@@ -86,6 +77,9 @@ app.controller('mainCtrl', function($scope, $http) {
 		    };
 		});
 	};
+
+
+
 
 
 	/****************************************************
