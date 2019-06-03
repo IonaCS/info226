@@ -13,6 +13,8 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.projectList = false
 	$scope.newRoad = false
 	$scope.newProject = false
+	$scope.editRoad = false
+	$scope.editProject = false
 
 
 	/****************************************************
@@ -40,39 +42,6 @@ app.controller('mainCtrl', function($scope, $http) {
 	/****************************************************
 		Show/hide roads/projects lists
 	****************************************************/
-
-	// $scope.showRoadList = function() {
-	// 	// IF road list hidden, bind road info and show,
-	// 	// ELSE IF list visible, hide:
-	// 	if ($scope.roadList == false) {
-	// 		$scope.roadList = true;
-	// 		//Get road info from server:
-	// 		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
-	//     	$http.get(road_dir).then (function (response) {
-	//     		//Assign the info to the ng-repeat in the html:
-	//     		$scope.listOfRoads = response.data.Roads;
-	// 		});		
-	// 	} else if ($scope.roadList == true) {
-	//         $scope.roadList = false;
-	// 	};
-	// };
-
-	// $scope.showProjectList = function() {
-	// 	// IF project list hidden, bind project info and show,
-	// 	// ELSE IF list visible, hide:
-	// 	if ($scope.projectList == false) {
-	// 		$scope.projectList = true;
-	// 		//Get project info from server:
-	// 		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
-	//     	$http.get(project_dir).then (function (response) {
-	//     		//Assign the info to the ng-repeat in the html:
-	//     		$scope.listOfProjects = response.data.Projects;
-	// 		});		
-	// 	} else if ($scope.projectList == true) {
-	//         $scope.projectList = false;
-	// 	};		
-
-
 	// This block of code will retrieve the course JSON file from the server and displays it.
 	// This can be used to check if the server has updated correctly.
 	$scope.showRoadList = function(){
@@ -106,7 +75,18 @@ app.controller('mainCtrl', function($scope, $http) {
 			);
 	};
 
+
+
+	/****************************************************
+		Edit existing roads/projects
+	****************************************************/
 	$scope.editRoadInfo = function(Roads){
+		//Add overlay for lightbox and display lightbox:
+		var overlay = document.createElement('div');
+		overlay.id = 'overlay';
+		document.getElementById('mainMenu').appendChild(overlay);
+		$scope.editRoad = true;
+		//Put info from server into edit form
 		$scope.ID = Roads.ID;
 		$scope.roadName = Roads.Code;
 		$scope.roadType = Roads.Type;
@@ -116,11 +96,45 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 	$scope.editProjInfo = function(Projects){
+		//Add overlay for lightbox and display lightbox:
+		var overlay = document.createElement('div');
+		overlay.id = 'overlay';
+		document.getElementById('mainMenu').appendChild(overlay);
+		$scope.editProject = true;
+		//Put info from server into edit form
 		$scope.projID = Projects.ID;
 		$scope.roadID = Projects.Road;
 		$scope.projType = Projects.Name;
 		$scope.status =  Projects.Status;
 	};
+
+	
+	/****************************************************
+		Show new roads/projects form
+	****************************************************/
+	$scope.showNewRoadForm = function() {
+		if ($scope.newRoad == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newRoad = true;
+		} else if ($scope.newRoad == true) {
+			$scope.newRoad = false;
+		}
+	};
+
+	$scope.showNewProjectForm = function() {
+		if ($scope.newProject == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newProject = true;
+		} else if ($scope.newProject == true) {
+			$scope.newProject = false;
+		}
+	};
+
+
 
 	/****************************************************
 		Add roads/projects
@@ -168,48 +182,24 @@ app.controller('mainCtrl', function($scope, $http) {
 
 
 
-
-
-
-
 	/****************************************************
-		Add roads/projects
+		Close all forms and remove overlay
 	****************************************************/
-	$scope.showNewRoadForm = function() {
-		if ($scope.newRoad == false) {
-			var overlay = document.createElement('div');
-			overlay.id = 'overlay';
-			document.getElementById('mainMenu').appendChild(overlay);
-			$scope.newRoad = true;
-		} else if ($scope.newRoad == true) {
-			$scope.newRoad = false;
-		}
-	};
-
-	$scope.showNewProjectForm = function() {
-		if ($scope.newProject == false) {
-			var overlay = document.createElement('div');
-			overlay.id = 'overlay';
-			document.getElementById('mainMenu').appendChild(overlay);
-			$scope.newProject = true;
-		} else if ($scope.newProject == true) {
-			$scope.newProject = false;
-		}
-	};
 
 	$scope.closeForm = function() {
 		$scope.newRoad = false;
 		$scope.newProject = false;
+		$scope.editRoad = false;
+		$scope.editProject = false;
 		document.getElementById('overlay').remove();
 	};
 
 
 
 
-
-
-
 });
+
+
 	/****************************************************
 		Deleting roads/projects
 	****************************************************/

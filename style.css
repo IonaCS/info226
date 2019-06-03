@@ -68,7 +68,7 @@ button:hover {
 	background: #fff;
 }
 
-#newRoadForm, #newProjectForm {
+#newRoadForm, #newProjectForm, #editRoadForm, #editProjectForm {
 	background: #d2d3d1;
  	border: 3px solid #fff;
  	margin: -100px 0 0 -90px;
