@@ -47,12 +47,20 @@
 			----------------------->
 			<button ng-click = "showRoadList()">See Roads</button>
 			<div ng-show="roadList">
-				Road ID:{{ID}}<br>
-				Code: {{roadName}}<br>
-				Type: {{roadType}}<br>
-				Section: {{section}}<br>
-				Location: {{location}}<br>
-				GPS: {{latLon}}
+				{{postSuccess}}
+				Road ID<br><input type = text ng-model="ID"><br>
+				Code<br><input type = text ng-model="roadName"><br>
+				Type<br><input type = text ng-model="roadType"><br>
+				Section<br><input type = text ng-model="section"><br>
+				Location<br><input type = text ng-model="location"><br>
+				GPS<br><input type = text ng-model="latLon"><br>
+				<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
+				<!--set up alert to make sure the delete doesn't happen automatically-->
+				<button ng-click = "deleteRoad(Roads)">Delete Road</button><br><br>
+				Road List:
+				<ul>
+					<li ng-repeat="Roads in myRoads">Road ID: {{Roads.ID}} <button ng-click = "editRoadInfo(Roads)">Edit Info</button></li>
+				</ul>
 			</div>
 
 			<button ng-click = "showNewRoadForm()">Add New Road</button><br>
@@ -79,10 +87,15 @@
 			----------------------->
 			<button ng-click = "showProjectList()">See Projects</button>
 			<div ng-show="projectList">
-				Project ID:{{ID}}<br>
-				Road ID: {{roadID}}<br>
-				Project Type: {{projectType}}<br>
-				Status: {{status}}<br>
+				{{postSuccess}}
+				Project ID<br><input type = text ng-model="projID"><br>
+				Road ID<br><input type = text ng-model="roadID"><br>
+				Project Type<br><input type = text ng-model="projType"><br>
+				Status<br><input type = text ng-model="status"><br><br>
+				Project List:
+				<ul>
+					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} <button ng-click = "editProjInfo(Projects)">Edit Info</button></li>
+				</ul>
 			</div>
 
 			<button ng-click = "showNewProjectForm()">Add New Project</button><br>
@@ -102,6 +115,5 @@
 			</div>
 
 		</div>
-
 	</body>
 </html>
