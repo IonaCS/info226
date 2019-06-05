@@ -7,14 +7,15 @@ app.controller('mainCtrl', function($scope, $http) {
 	/****************************************************
 		Hides/shows different pages
 	****************************************************/
-	$scope.login = true
-	$scope.menu = false
-	$scope.roadList = false
-	$scope.projectList = false
-	$scope.newRoad = false
-	$scope.newProject = false
-	$scope.editRoad = false
-	$scope.editProject = false
+	$scope.login = true;
+	$scope.menu = false;
+	$scope.roadList = false;
+	$scope.projectList = false;
+	$scope.newRoad = false;
+	$scope.newProject = false;
+	$scope.editRoad = false;
+	$scope.editProject = false;
+	var userType;
 
 
 	/****************************************************
@@ -31,6 +32,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	  				$scope.login = false;
 	  				$scope.menu = true;
 	  				$scope.name = response.data.Users[i].LoginName;
+	  				userType = response.data.Users[i].UserType;
 	  			} else  if ($scope.username != null && $scope.password != null) {
 	  				$scope.feedback = 'Sorry, those details were not correct.';
 	  			};
