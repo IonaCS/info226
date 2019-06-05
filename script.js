@@ -29,10 +29,15 @@ app.controller('mainCtrl', function($scope, $http) {
 		    num_of_users = response.data.Users.length
 		    for (var i = 0; i < num_of_users; i++) {
 				if ($scope.username == response.data.Users[i].LoginName && $scope.password == response.data.Users[i].Password) {
-	  				$scope.login = false;
-	  				$scope.menu = true;
 	  				$scope.name = response.data.Users[i].LoginName;
 	  				userType = response.data.Users[i].UserType;
+	  				$scope.login = false;
+	  				$scope.menu = true;
+	  				// User permissions:
+	  				if (userType == 'manager') {
+		  				$scope.addRoadButton = true
+		  				$scope.addProjectButton = true
+		  			}
 	  			} else  if ($scope.username != null && $scope.password != null) {
 	  				$scope.feedback = 'Sorry, those details were not correct.';
 	  			};
@@ -51,6 +56,13 @@ app.controller('mainCtrl', function($scope, $http) {
 					$scope.myRoads = response.data.Roads;
 					if ($scope.roadList == false) {
 						$scope.roadList = true;
+						// User permissions:
+						if (userType == 'manager') {
+							$scope.saveRoadButton = true
+							$scope.deleteRoadButton = true
+							$scope.saveProjectButton = true
+							$scope.deleteProjectButton = true
+						}
 					} else if ($scope.roadList == true) {
 						$scope.roadList = false;
 					}
