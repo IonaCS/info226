@@ -38,7 +38,6 @@ app.controller('mainCtrl', function($scope, $http) {
 		});
 	};
 
-
 	/****************************************************
 		Show/hide roads/projects lists
 	****************************************************/
@@ -108,7 +107,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		$scope.status =  Projects.Status;
 	};
 
-	
+
 	/****************************************************
 		Show new roads/projects form
 	****************************************************/
