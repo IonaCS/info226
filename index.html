@@ -49,7 +49,7 @@
 			<div ng-show="roadList">
 				<!-- Road List: -->
 				<ul>
-					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} <button class="editButton" ng-click = "editRoadInfo(Roads)">Edit Info</button></li>
+					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} <button class="editButton" ng-click = "editRoadInfo(Roads)"> Info </button></li>
 				</ul>
 				<!-- Modify road: -->
 				<div id="editRoadForm" ng-show="editRoad">
@@ -95,7 +95,7 @@
 			<div ng-show="projectList">
 				<!-- Project list -->
 				<ul>
-					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} <button class="editButton" ng-click = "editProjInfo(Projects)">Edit Info</button></li>
+					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} <button class="editButton" ng-click = "editProjInfo(Projects)"> Info </button></li>
 				</ul>
 				<!-- Modify project -->
 				<div id="editProjectForm" ng-show="editProject">
