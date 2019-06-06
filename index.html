@@ -65,12 +65,12 @@
 
 				<!-- Modify road form: -->
 				<div id="editRoadForm" ng-show="editRoad">
-					Road ID<br><input type = text ng-model="ID"><br>
-					Code<br><input type = text ng-model="roadName"><br>
-					Type<br><input type = text ng-model="roadType"><br>
-					Section<br><input type = text ng-model="section"><br>
-					Location<br><input type = text ng-model="location"><br>
-					GPS<br><input type = text ng-model="latLon"><br>
+					Road ID<br><input type="text" placeholder="Road ID" ng-model="ID"><br>
+					Code<br><input type="text" placeholder="Road Name" ng-model="roadName"><br>
+					Type<br><input type="text" placeholder="Road Type" ng-model="roadType"><br>
+					Section<br><input type = text placeholder="Road Section" ng-model="section"><br>
+					Location<br><input type = text placeholder="Road Location" ng-model="location"><br>
+					GPS<br><input type = text placeholder="Latitude, Longitude" ng-model="latLon"><br>
 					<button ng-show="saveRoadButton" ng-click="addNewRoad()">Save Road</button>
 					<button ng-click="closeForm()" type="cancel"> Cancel </button>
 				</div>
@@ -116,11 +116,12 @@
 				<!-- Modify project -->
 				<div id="editProjectForm" ng-show="editProject">
 					{{postSuccess}}
-					Project ID<br><input type = text ng-model="projID"><br>
-					Road ID<br><input type = text ng-model="roadID"><br>
-					Project Type<br><input type = text ng-model="projType"><br>
-					Status<br><input type = text ng-model="status" ng-readonly="readOnlyStatus"><br>
-					Start Date<br><input type = text ng-model="startdate"><br>
+					Project ID<br><input placeholder="Project ID" type=text ng-model="projID"><br>
+					Road ID<br><input placeholder="Road ID" type=text ng-model="roadID"><br>
+					Project Type<br><input placeholder="E.g. Resurfacing" type=text ng-model="projType"><br>
+					Status<br><input placeholder="Open/Closed" type=text ng-model="status"><br>
+
+					Start Date<br><input type=date ng-model="startdate"><br>
 					<div class=contractorForm ng-show="contractorRead">
 						Contractor<br><input type=text ng-model="contractor" readonly><br>
 					</div>
@@ -142,11 +143,11 @@
 			    <label>Associated Road</label><br>
 			    <input type="text" placeholder="Road ID" ng-model="roadID" required> <br>
 			    <label>Type</label><br>
-			    <input type="text" placeholder="Project Type" ng-model="projType" required> <br>
+			    <input type="text" placeholder="E.g. Resurfacing" ng-model="projType" required> <br>
 			    <label>Start Date</label><br>
-			    <input type="date" required> <br>
+			    <input type="date" ng-model="startDate" required> <br>
 			    <label>Contractor</label><br>
-			    <input type="text" placeholder="Contractor Company" required> <br>
+			    <input type="text" ng-model="contractor" placeholder="Contractor Company" required> <br>
 			    <button ng-click="addNewProject()" type="submit"> OK </button>
 			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
 			</div>

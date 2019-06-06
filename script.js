@@ -44,9 +44,24 @@ app.controller('mainCtrl', function($scope, $http) {
 	  		}
 		});
 	};
+
 	$scope.logOut = function(){
 		$scope.login = true;
 		$scope.menu = false;
+		$scope.roadList = false;
+		$scope.projectList = false;
+		$scope.newRoad = false;
+		$scope.newProject = false;
+		$scope.editRoad = false;
+		$scope.editProject = false;
+		$scope.addRoadButton = false;
+		$scope.addProjectButton = false;
+		$scope.saveRoadButton = false;
+		$scope.saveProjectButton = false;
+		$scope.deleteProjectButton = false;
+		$scope.deleteRoadButton = false;
+		$scope.contractorEdit = false;
+		$scope.contractorRead = false;
 		$scope.username = null;
 		$scope.password = null;
 		$scope.loginFeedback = 'Log out sucessful';
@@ -60,24 +75,23 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.showRoadList = function(){
 		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
 			$http.get(road_dir).then(function sucessCall(response) {
-					$scope.myRoads = response.data.Roads;
-					if ($scope.roadList == false) {
-						$scope.roadList = true;
-						// User permissions:
-						if (userType == 'manager') {
-							$scope.saveRoadButton = true;
-							$scope.deleteRoadButton = true;
-						}
-						else if (userType == 'inspector'){
-							$scope.saveRoadButton = true;
-						}
-					} else if ($scope.roadList == true) {
-						$scope.roadList = false;
+				$scope.myRoads = response.data.Roads;
+				if ($scope.roadList == false) {
+					$scope.roadList = true;
+					// User permissions:
+					if (userType == 'manager') {
+						$scope.saveRoadButton = true;
+						$scope.deleteRoadButton = true;
+					} else if (userType == 'inspector'){
+						$scope.saveRoadButton = true;
 					}
-				}, function errorCall() {
-					$scope.feedback = "Failed to load file";
+				} else if ($scope.roadList == true) {
+					$scope.roadList = false;
 				}
-			);
+			}, function errorCall() {
+				$scope.feedback = "Failed to load file";
+			}
+		);
 	};
 
 	$scope.showProjectList = function(){
@@ -92,8 +106,7 @@ app.controller('mainCtrl', function($scope, $http) {
 							$scope.saveProjectButton = true;
 							$scope.deleteProjectButton = true;
 							$scope.contractorRead = true;
-						}
-						else if (userType == 'inspector'){
+						} else if (userType == 'inspector'){
 							$scope.saveProjectButton = true;
 							$scope.contractorRead = true;
 						} else if (userType =='contractor') {
@@ -203,7 +216,12 @@ app.controller('mainCtrl', function($scope, $http) {
 				ID: $scope.projID,
 				Road: $scope.roadID,
 				Name: $scope.projType,
-				status: $scope.status,
+				Status: $scope.status,
+				StartDate: $scope.startdate,
+				Contractor: $scope.contractor,
+				Problems: $scope.problems,
+				Comments: $scope.comments,
+				Works: $scope.works
 			};
 			$scope.closeForm();
 			// This section will post new data to the JSON file on the server
