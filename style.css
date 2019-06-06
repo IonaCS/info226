@@ -98,10 +98,7 @@ li {
 	padding: 0;
 }
 
-
-
-/*** Lightbox for forms: ***/
-#newRoadForm, #newProjectForm, #editRoadForm, #editProjectForm {
+#newRoadForm, #newProjectForm, #editRoadForm, #editProjectForm, #deleteAlert {
 	background: #d2d3d1;
  	border: 3px solid #fff;
  	margin: -100px 0 0 -90px;

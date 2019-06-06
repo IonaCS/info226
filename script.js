@@ -15,6 +15,8 @@ app.controller('mainCtrl', function($scope, $http) {
 	$scope.newProject = false;
 	$scope.editRoad = false;
 	$scope.editProject = false;
+	$scope.roadsAlert = false;
+	$scope.projectsAlert = false;
 	var userType;
 
 
@@ -246,46 +248,45 @@ app.controller('mainCtrl', function($scope, $http) {
 		$scope.newProject = false;
 		$scope.editRoad = false;
 		$scope.editProject = false;
+		$scope.roadsAlert = false;
+		$scope.projectsAlert = false;
 		document.getElementById('overlay').remove();
 	};
-
-
-
-
-
-
-
-	$scope.deleteRoad = function(Road) {
-		var index = $scope.myRoads.indexOf(Road);
-		$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + index + '.json')
-	}
-
-
-
-});
-
-
 	/****************************************************
 		Deleting roads/projects
 	****************************************************/
-	/*
-	$scope.deleteRoad = function() {
-		var roadObj = {
-			ID: $scope.ID,
-			Code: $scope.roadName,
-			Type: $scope.roadType,
-			Section: $scope.section,
-			Location: $scope.location,
-			GPS: $scope.latLon,
-		};
 
-		// This section will post new data to the JSON file on the server
-		// Unsure as to how the delete works with the URL
-		var postNewRoad = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.<roadid>.json', roadObj);
-		postNewRoad.success(function(data, status, headers, config){
-			$scope.postSuccess = "Posted Sucessfully";
-		});
-		postNewRoad.error(function(data, status, headers, config){
-			$scope.postSuccess = "Failed to post";
-		});
-	}*/
+	$scope.deleteRoadsAlert = function(){
+		if($scope.roadsAlert == false){
+				var overlay = document.createElement('div');
+				overlay.id = 'overlay';
+				document.getElementById('mainMenu').appendChild(overlay);
+				$scope.roadsAlert = true;
+			}
+		else if ($scope.roadsAlert == true) {
+			$scope.roadsAlert = false;
+		}
+	}
+
+	$scope.deleteRoad = function(Roads) {
+			$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + Roads.ID + '.json');
+			$scope.closeForm();
+	}
+
+	$scope.deleteProjectsAlert = function(){
+		if($scope.projectsAlert == false){
+				var overlay = document.createElement('div');
+				overlay.id = 'overlay';
+				document.getElementById('mainMenu').appendChild(overlay);
+				$scope.projectsAlert = true;
+			}
+		else if ($scope.projectsAlert == true) {
+			$scope.projectsAlert = false;
+		}
+	}
+
+	$scope.deleteProject = function(Projects) {
+		$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.project.' + Projects.ID + '.json');
+		$scope.closeForm();
+	}
+});
