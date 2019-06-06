@@ -49,7 +49,7 @@
 			<div ng-show="roadList">
 				<!-- Road List: -->
 				<ul>
-					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} 
+					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}}
 						<button class="infoButton" ng-click = "editRoadInfo(Roads)"> Info </button>
 						<button class="deleteButton" ng-click="deleteRoad(Roads)"> Delete </button>
 					</li>
@@ -95,7 +95,7 @@
 			<div ng-show="projectList">
 				<!-- Project list -->
 				<ul>
-					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} 
+					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}}
 						<button class="editButton" ng-click = "editProjInfo(Projects)"> Info </button>
 						<button class="deleteButton" ng-click="deleteProject(Project)"> Delete </button>
 					</li>
@@ -134,7 +134,7 @@
 			    <button ng-click="addNewProject()" type="submit"> OK </button>
 			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
 			</div>
-
+			<button ng-click="logOut()">Log Out</button>
 		</div>
 	</body>
 </html>
