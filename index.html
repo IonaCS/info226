@@ -61,7 +61,7 @@
 					Location<br><input type = text ng-model="location"><br>
 					GPS<br><input type = text ng-model="latLon"><br>
 					<!-- Save road button does nothing atm -->
-					<button ng-show="saveRoadButton" ng-click="saveRoad(Roads)">Save Road</button>
+					<button ng-show="saveRoadButton" ng-click="addNewRoad()">Save Road</button>
 					<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
 					<!--set up alert to make sure the delete doesn't happen automatically-->
 					<button ng-show="deleteRoadButton" ng-click="deleteRoad(Roads)">Delete Road</button>
@@ -95,7 +95,7 @@
 			<div ng-show="projectList">
 				<!-- Project list -->
 				<ul>
-					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} <button class="editButton" ng-click = "editProjInfo(Projects)">Edit Info</button></li>
+					<li ng-repeat="Projects in myProjects">ID: {{Projects.ID}} Status:{{Projects.Status}}<button class="editButton" ng-click = "editProjInfo(Projects)">Edit Info</button></li>
 				</ul>
 				<!-- Modify project -->
 				<div id="editProjectForm" ng-show="editProject">
@@ -103,9 +103,13 @@
 					Project ID<br><input type = text ng-model="projID"><br>
 					Road ID<br><input type = text ng-model="roadID"><br>
 					Project Type<br><input type = text ng-model="projType"><br>
-					Status<br><input type = text ng-model="status"><br><br>
-					<!-- Save road button does nothing atm -->
-					<button  ng-show="saveProjectButton" ng-click="saveProjects(Projects)">Save Project</button>
+					Status<br><input type = text ng-model="status" ng-readonly="readOnlyStatus"><br>
+					Start Date<br><input type = text ng-model="startdate"><br>
+					Contractor<br><input type = text ng-model="contractor"><br>
+					Problems<br><input type = text ng-model="problems"><br>
+					Comments<br><input type = text ng-model="comments"><br>
+					Works<br><input type = text ng-model="works"><br><br>
+					<button  ng-show="saveProjectButton" ng-click="addNewProject()">Save Project</button>
 					<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
 					<!--set up alert to make sure the delete doesn't happen automatically-->
 					<button ng-show="deleteProjectButton" ng-click="deleteProject(Projects)">Delete Project</button>
