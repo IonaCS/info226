@@ -44,6 +44,13 @@ app.controller('mainCtrl', function($scope, $http) {
 	  		}
 		});
 	};
+	$scope.logOut = function(){
+		$scope.login = true;
+		$scope.menu = false;
+		$scope.username = null;
+		$scope.password = null;
+		$scope.loginFeedback = 'Log out sucessful';
+	}
 
 	/****************************************************
 		Show/hide roads/projects lists
