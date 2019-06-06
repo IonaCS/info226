@@ -29,7 +29,7 @@
 			    <label>Password</label>
 			    <input type="password" placeholder="Enter Password" ng-model="password" id="loginForm" required> <br>
 			    <button ng-click="checkLogin()" type="submit"> Login </button>
-			    <p>{{feedback}}</p>
+			    <p>{{loginFeedback}}</p>
 			</form>
 		</div>
 
@@ -49,11 +49,13 @@
 			<div ng-show="roadList">
 				<!-- Road List: -->
 				<ul>
-					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} <button class="editButton" ng-click = "editRoadInfo(Roads)"> Info </button></li>
+					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} 
+						<button class="infoButton" ng-click = "editRoadInfo(Roads)"> Info </button>
+						<button class="deleteButton" ng-click="deleteRoad(Roads)"> Delete </button>
+					</li>
 				</ul>
 				<!-- Modify road: -->
 				<div id="editRoadForm" ng-show="editRoad">
-					{{postSuccess}}
 					Road ID<br><input type = text ng-model="ID"><br>
 					Code<br><input type = text ng-model="roadName"><br>
 					Type<br><input type = text ng-model="roadType"><br>
@@ -64,7 +66,6 @@
 					<button ng-show="saveRoadButton" ng-click="saveRoad(Roads)">Save Road</button>
 					<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
 					<!--set up alert to make sure the delete doesn't happen automatically-->
-					<button ng-show="deleteRoadButton" ng-click="deleteRoad(Roads)">Delete Road</button>
 					<button ng-click="closeForm()" type="cancel"> Cancel </button>
 				</div>
 			</div>
@@ -82,8 +83,7 @@
 			    <label>Location</label><br>
 			    <input type="text" placeholder="Road Location" ng-model="location"required> <br>
 			    <label>Coordinates</label><br>
-			    <input type="text" placeholder="Latitude" ng-model="latLon"required> <br>
-			    <input type="text" placeholder="Longitude" ng-model="latLon" required> <br>
+			    <input type="text" placeholder="Latitude, Longitude" ng-model="latLon"required> <br>
 			    <button ng-click="addNewRoad()" type="submit"> OK </button>
 			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
 			</div>
@@ -95,7 +95,10 @@
 			<div ng-show="projectList">
 				<!-- Project list -->
 				<ul>
-					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} <button class="editButton" ng-click = "editProjInfo(Projects)"> Info </button></li>
+					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} 
+						<button class="editButton" ng-click = "editProjInfo(Projects)"> Info </button>
+						<button class="deleteButton" ng-click="deleteProject(Project)"> Delete </button>
+					</li>
 				</ul>
 				<!-- Modify project -->
 				<div id="editProjectForm" ng-show="editProject">
@@ -108,7 +111,6 @@
 					<button  ng-show="saveProjectButton" ng-click="saveProjects(Projects)">Save Project</button>
 					<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
 					<!--set up alert to make sure the delete doesn't happen automatically-->
-					<button ng-show="deleteProjectButton" ng-click="deleteProject(Projects)">Delete Project</button>
 					<button ng-click="closeForm()" type="cancel"> Cancel </button>
 				</div>
 			</div>

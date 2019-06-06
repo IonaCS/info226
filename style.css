@@ -72,10 +72,14 @@ li {
 	padding: 10px;
 }
 
-.editButton {
-	margin-left: -50%;
-	margin-top: -5px;
+.infoButton, .deleteButton {
+	//margin-left: -50%;
+	margin-top: -15px;
 	float: right;
+}
+
+.infoButton {
+	margin-right: 100px;
 }
 
 

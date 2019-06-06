@@ -39,7 +39,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		  				$scope.addProjectButton = true
 		  			}
 	  			} else  if ($scope.username != null && $scope.password != null) {
-	  				$scope.feedback = 'Sorry, those details were not correct.';
+	  				$scope.loginFeedback = 'Sorry, those details were not correct.';
 	  			};
 	  		}
 		});
@@ -164,6 +164,7 @@ app.controller('mainCtrl', function($scope, $http) {
 			Location: $scope.location,
 			GPS: $scope.latLon,
 		};
+		$scope.closeForm();
 		// This section will post new data to the JSON file on the server
 		var postNewRoad = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.road.json', roadObj);
 		postNewRoad.success(function(data, status, headers, config){
@@ -208,6 +209,14 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 
+
+
+
+
+	$scope.deleteRoad = function(Road) {
+		var index = $scope.myRoads.indexOf(Road);
+		$http.post('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + index + '.json')
+	}
 
 
 });
