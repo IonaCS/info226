@@ -134,7 +134,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		$scope.contractor = Projects.Contractor;
 		$scope.problems = Projects.Problems;
 		$scope.comments = Projects.Comments;
-		$scope.works = Projetcs.Works;
+		$scope.works = Projects.Works;
 	};
 
 

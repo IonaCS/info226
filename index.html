@@ -5,6 +5,8 @@
 		<meta charset="utf-8" />
 		<title>TRACK</title>
 		<link href="https://fonts.googleapis.com/css?family=Carter+One|Handlee" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 		<link rel="stylesheet" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 		<script src="script.js"></script>
@@ -49,9 +51,13 @@
 			<div ng-show="roadList">
 				<!-- Road List: -->
 				<ul>
-					<li ng-repeat="Roads in myRoads"># {{Roads.ID}} {{Roads.Code}} 
+					<li ng-repeat="Roads in myRoads">
+						# {{Roads.ID}} {{Roads.Code}} 
+						<button class="deleteButton" ng-click="deleteRoad(Roads)"> 
+							<i class="material-icons">delete</i> 
+							<!-- set up alert to make sure doesn't delete automatically-->
+						</button>
 						<button class="infoButton" ng-click = "editRoadInfo(Roads)"> Info </button>
-						<button class="deleteButton" ng-click="deleteRoad(Roads)"> Delete </button>
 					</li>
 				</ul>
 				<!-- Modify road: -->
@@ -62,10 +68,7 @@
 					Section<br><input type = text ng-model="section"><br>
 					Location<br><input type = text ng-model="location"><br>
 					GPS<br><input type = text ng-model="latLon"><br>
-					<!-- Save road button does nothing atm -->
 					<button ng-show="saveRoadButton" ng-click="addNewRoad()">Save Road</button>
-					<!-- meant to be clicked after edit road is clicked, so relevant information can be taken accessed by javascript to delete -->
-					<!--set up alert to make sure the delete doesn't happen automatically-->
 					<button ng-click="closeForm()" type="cancel"> Cancel </button>
 				</div>
 			</div>
@@ -96,8 +99,11 @@
 				<!-- Project list -->
 				<ul>
 					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}} 
-						<button class="editButton" ng-click = "editProjInfo(Projects)"> Info </button>
-						<button class="deleteButton" ng-click="deleteProject(Project)"> Delete </button>
+						<button class="deleteButton" ng-click="deleteProject(Projects)"> 
+							<i class="material-icons">delete</i> 
+							<!-- set up alert to make sure doesn't delete automatically-->
+						</button>
+						<button class="infoButton" ng-click = "editProjInfo(Projects)"> Info </button>
 					</li>
 				</ul>
 				<!-- Modify project -->
