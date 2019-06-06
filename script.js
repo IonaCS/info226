@@ -69,8 +69,7 @@ app.controller('mainCtrl', function($scope, $http) {
 							$scope.deleteRoadButton = true;
 						}
 						else if (userType == 'inspector'){
-							$scope.saveProjectButton = true;
-							$scope.deleteProjectButton = true;
+							$scope.saveRoadButton = true;
 						}
 					} else if ($scope.roadList == true) {
 						$scope.roadList = false;
@@ -96,7 +95,6 @@ app.controller('mainCtrl', function($scope, $http) {
 						}
 						else if (userType == 'inspector'){
 							$scope.saveProjectButton = true;
-							$scope.deleteProjectButton = true;
 							$scope.contractorRead = true;
 						} else if (userType =='contractor') {
 							$scope.contractorEdit = true;
@@ -217,6 +215,10 @@ app.controller('mainCtrl', function($scope, $http) {
 				$scope.postSuccess = "Failed to post";
 			});
 	};
+
+	//"A project cannot be updated/added if the underlying road does not exist.
+
+
 	/****************************************************
 		Close all forms and remove overlay
 	****************************************************/
@@ -237,7 +239,7 @@ app.controller('mainCtrl', function($scope, $http) {
 
 	$scope.deleteRoad = function(Road) {
 		var index = $scope.myRoads.indexOf(Road);
-		$http.post('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + index + '.json')
+		$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + index + '.json')
 	}
 
 

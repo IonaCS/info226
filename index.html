@@ -55,7 +55,7 @@
 				<ul>
 					<li ng-repeat="Roads in myRoads">
 						# {{Roads.ID}} {{Roads.Code}}
-						<button class="deleteButton" ng-click="deleteRoad(Roads)">
+						<button ng-show="deleteRoadButton" class="deleteButton" ng-click="deleteRoad(Roads)">
 							<i class="material-icons">delete</i>
 							<!-- set up alert to make sure doesn't delete automatically-->
 						</button>
@@ -105,7 +105,7 @@
 				<!-- Project list -->
 				<ul>
 					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}}
-						<button class="deleteButton" ng-click="deleteProject(Projects)">
+						<button ng-show="deleteProjectButton" class="deleteButton" ng-click="deleteProject(Projects)">
 							<i class="material-icons">delete</i>
 							<!-- set up alert to make sure doesn't delete automatically-->
 						</button>
