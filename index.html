@@ -121,7 +121,12 @@
 					Project Type<br><input type = text ng-model="projType"><br>
 					Status<br><input type = text ng-model="status" ng-readonly="readOnlyStatus"><br>
 					Start Date<br><input type = text ng-model="startdate"><br>
-					Contractor<br><input type = text ng-model="contractor"><br>
+					<div class=contractorForm ng-show="contractorRead">
+						Contractor<br><input type=text ng-model="contractor" readonly><br>
+					</div>
+					<div class=contractorForm ng-show="contractorEdit">
+						Contractor<br><input type=text ng-model="contractor"><br>
+					</div>
 					Problems<br><input type = text ng-model="problems"><br>
 					Comments<br><input type = text ng-model="comments"><br>
 					Works<br><input type = text ng-model="works"><br><br>

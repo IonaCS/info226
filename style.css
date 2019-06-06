@@ -73,6 +73,9 @@ li {
 	padding: 10px;
 }
 
+
+
+/*** Info/delete buttons: ***/
 .infoButton, .deleteButton {
 	margin-left: -50%;
 	margin-top: -10px;
@@ -90,8 +93,14 @@ li {
 
 
 
-/*** Lightbox for forms: ***/
+/*** ***/
+.contractorForm {
+	padding: 0;
+}
 
+
+
+/*** Lightbox for forms: ***/
 #newRoadForm, #newProjectForm, #editRoadForm, #editProjectForm {
 	background: #d2d3d1;
  	border: 3px solid #fff;
@@ -104,7 +113,6 @@ li {
  	width: 180px;
  	z-index: 20;
 }
-
 
 #overlay {
 	background: #000;

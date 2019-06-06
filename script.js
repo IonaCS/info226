@@ -8,7 +8,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		Hides/shows different pages
 	****************************************************/
 	$scope.login = true;
-	$scope.menu = true;
+	$scope.menu = false;
 	$scope.roadList = false;
 	$scope.projectList = false;
 	$scope.newRoad = false;
@@ -85,10 +85,14 @@ app.controller('mainCtrl', function($scope, $http) {
 						if (userType == 'manager') {
 							$scope.saveProjectButton = true;
 							$scope.deleteProjectButton = true;
+							$scope.contractorRead = true;
 						}
 						else if (userType == 'inspector'){
 							$scope.saveProjectButton = true;
 							$scope.deleteProjectButton = true;
+							$scope.contractorRead = true;
+						} else if (userType =='contractor') {
+							$scope.contractorEdit = true;
 						}
 					} else if ($scope.projectList == true) {
 						$scope.projectList = false;
