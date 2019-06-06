@@ -7,11 +7,17 @@ app.controller('mainCtrl', function($scope, $http) {
 	/****************************************************
 		Hides/shows different pages
 	****************************************************/
-	$scope.login = true
-	$scope.menu = false
-	$scope.roadList = false
-	$scope.projectList = false
-	$scope.newRoad = false
+	$scope.login = true;
+	$scope.menu = false;
+	$scope.roadList = false;
+	$scope.projectList = false;
+	$scope.newRoad = false;
+	$scope.newProject = false;
+	$scope.editRoad = false;
+	$scope.editProject = false;
+	$scope.roadsAlert = false;
+	$scope.projectsAlert = false;
+	var userType;
 
 
 	/****************************************************
@@ -25,82 +31,262 @@ app.controller('mainCtrl', function($scope, $http) {
 		    num_of_users = response.data.Users.length
 		    for (var i = 0; i < num_of_users; i++) {
 				if ($scope.username == response.data.Users[i].LoginName && $scope.password == response.data.Users[i].Password) {
+	  				$scope.name = response.data.Users[i].LoginName;
+	  				userType = response.data.Users[i].UserType;
 	  				$scope.login = false;
 	  				$scope.menu = true;
-	  				$scope.name = response.data.Users[i].LoginName;
-	  			} else  if ($scope.username != null && $scope.password != null) {
-	  				$scope.feedback = 'Sorry, those details were not correct.';
+	  				// User permissions:
+	  				if (userType == 'manager') {
+		  				$scope.addRoadButton = true;
+		  				$scope.addProjectButton = true;
+		  			}
+	  			} else if ($scope.username != null && $scope.password != null) {
+	  				$scope.loginFeedback = 'Sorry, those details were not correct.';
 	  			};
 	  		}
 		});
 	};
 
+	$scope.logOut = function(){
+		$scope.login = true;
+		$scope.menu = false;
+		$scope.roadList = false;
+		$scope.projectList = false;
+		$scope.newRoad = false;
+		$scope.newProject = false;
+		$scope.editRoad = false;
+		$scope.editProject = false;
+		$scope.addRoadButton = false;
+		$scope.addProjectButton = false;
+		$scope.saveRoadButton = false;
+		$scope.saveProjectButton = false;
+		$scope.deleteProjectButton = false;
+		$scope.deleteRoadButton = false;
+		$scope.contractorEdit = false;
+		$scope.contractorRead = false;
+		$scope.username = null;
+		$scope.password = null;
+		$scope.loginFeedback = 'Log out sucessful';
+	}
 
 	/****************************************************
 		Show/hide roads/projects lists
 	****************************************************/
-	$scope.showRoadList = function() {
-		//Get road info from server:
+	// This block of code will retrieve the course JSON file from the server and displays it.
+	// This can be used to check if the server has updated correctly.
+	$scope.showRoadList = function(){
 		var road_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
-	    $http.get(road_dir).then (function (response) {
-			//Iterate through list of roads on server:
-		    num_of_roads = response.data.Roads.length;
-		    for (var i = 0; i < num_of_roads; i++) {
-		    	// IF road list hidden, bind road info and show.
-				// ELSE IF list visible, hide:
-		        if ($scope.roadList == false) {
+			$http.get(road_dir).then(function sucessCall(response) {
+				$scope.myRoads = response.data.Roads;
+				if ($scope.roadList == false) {
 					$scope.roadList = true;
-					$scope.ID = response.data.Roads[i].ID;
-					$scope.roadName = response.data.Roads[i].Code;
-					$scope.roadType = response.data.Roads[i].Type;
-					$scope.section = response.data.Roads[i].Section;
-					$scope.location = response.data.Roads[i].Location;
-					$scope.latLon = response.data.Roads[i].GPS;
-		        } else if ($scope.roadList == true) {
-		        	$scope.roadList = false;
-		        }
-		    };
-		});
-	}; //ng-repeat
+					// User permissions:
+					if (userType == 'manager') {
+						$scope.saveRoadButton = true;
+						$scope.deleteRoadButton = true;
+					} else if (userType == 'inspector'){
+						$scope.saveRoadButton = true;
+					}
+				} else if ($scope.roadList == true) {
+					$scope.roadList = false;
+				}
+			}, function errorCall() {
+				$scope.feedback = "Failed to load file";
+			}
+		);
+	};
 
-	$scope.showProjectList = function() {
+	$scope.showProjectList = function(){
 		//Get project info from server:
 		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
-	    $http.get(project_dir).then (function (response) {
-			//Iterate through list of projects on server:
-		    num_of_projects = response.data.Projects.length;
-		    for (var i = 0; i < num_of_projects; i++) {
-		    	// IF project list hidden, bind project info and show.
-				// ELSE IF list visible, hide:
-		        if ($scope.projectList == false) {
-					$scope.projectList = true;
-					$scope.ID = response.data.Projects[i].ID;
-					$scope.roadID = response.data.Projects[i].Road;
-					$scope.projectType = response.data.Projects[i].Name;
-					$scope.status = response.data.Projects[i].Status;
-		        } else if ($scope.projectList == true) {
-		        	$scope.projectList = false;
-		        }
-		    };
-		});
+			$http.get(project_dir).then(function sucessCall(response) {
+					$scope.myProjects = response.data.Projects;
+					if ($scope.projectList == false) {
+						$scope.projectList = true;
+						// User permissions:
+						if (userType == 'manager') {
+							$scope.saveProjectButton = true;
+							$scope.deleteProjectButton = true;
+							$scope.contractorRead = true;
+						} else if (userType == 'inspector'){
+							$scope.saveProjectButton = true;
+							$scope.contractorRead = true;
+						} else if (userType =='contractor') {
+							$scope.contractorEdit = true;
+						}
+					} else if ($scope.projectList == true) {
+						$scope.projectList = false;
+					}
+				}, function errorCall() {
+					$scope.feedback = "Failed to load file";
+				}
+			);
+	};
+
+
+
+	/****************************************************
+		Edit existing roads/projects
+	****************************************************/
+	$scope.editRoadInfo = function(Roads){
+		//Add overlay for lightbox and display lightbox:
+		var overlay = document.createElement('div');
+		overlay.id = 'overlay';
+		document.getElementById('mainMenu').appendChild(overlay);
+		$scope.editRoad = true;
+		//Put info from server into edit form
+		$scope.ID = Roads.ID;
+		$scope.roadName = Roads.Code;
+		$scope.roadType = Roads.Type;
+		$scope.section =  Roads.Section;
+		$scope.location = Roads.Location;
+		$scope.latLon = Roads.GPS;
+	};
+
+	$scope.editProjInfo = function(Projects){
+		//Add overlay for lightbox and display lightbox:
+		var overlay = document.createElement('div');
+		overlay.id = 'overlay';
+		document.getElementById('mainMenu').appendChild(overlay);
+		$scope.editProject = true;
+		//Put info from server into edit form
+		$scope.projID = Projects.ID;
+		$scope.roadID = Projects.Road;
+		$scope.projType = Projects.Name;
+		$scope.status = Projects.Status;
+		$scope.startDate = Projects.StartDate;
+		$scope.contractor = Projects.Contractor;
+		$scope.problems = Projects.Problems;
+		$scope.comments = Projects.Comments;
+		$scope.works = Projects.Works;
 	};
 
 
 	/****************************************************
-		Add roads/projects
+		Show new roads/projects form
 	****************************************************/
 	$scope.showNewRoadForm = function() {
-		console.log(1)
-		if ($scope.newRoad == true) {
-			$scope.newRoad = false
-			console.log(2)
-		} else {
-			$scope.newRoad = true
-			console.log(3)
+		if ($scope.newRoad == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newRoad = true;
+		} else if ($scope.newRoad == true) {
+			$scope.newRoad = false;
 		}
 	};
 
+	$scope.showNewProjectForm = function() {
+		if ($scope.newProject == false) {
+			var overlay = document.createElement('div');
+			overlay.id = 'overlay';
+			document.getElementById('mainMenu').appendChild(overlay);
+			$scope.newProject = true;
+		} else if ($scope.newProject == true) {
+			$scope.newProject = false;
+		}
+	};
+
+	/****************************************************
+		Add roads/projects
+	****************************************************/
+
+	// This section define a new item to post to the server. This can be easily modified to use data from user input
+	// If the ID is new, a new object is created. If the ID is already in use, the existing item will be updated.
+	$scope.addNewRoad = function() {
+		var roadObj = {
+			ID: $scope.ID,
+			Code: $scope.roadName,
+			Type: $scope.roadType,
+			Section: $scope.section,
+			Location: $scope.location,
+			GPS: $scope.latLon,
+		};
+		$scope.closeForm();
+		// This section will post new data to the JSON file on the server
+		var postNewRoad = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.road.json', roadObj);
+		postNewRoad.success(function(data, status, headers, config){
+			$scope.postSuccess = "Posted Sucessfully";
+		});
+		postNewRoad.error(function(data, status, headers, config){
+			$scope.postSuccess = "Failed to post";
+		});
+	};
+
+	$scope.addNewProject = function() {
+			var projectObj = {
+				ID: $scope.projID,
+				Road: $scope.roadID,
+				Name: $scope.projType,
+				Status: $scope.status,
+				StartDate: $scope.startdate,
+				Contractor: $scope.contractor,
+				Problems: $scope.problems,
+				Comments: $scope.comments,
+				Works: $scope.works
+			};
+			$scope.closeForm();
+			// This section will post new data to the JSON file on the server
+			var postNewProject = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.project.json', projectObj);
+			postNewProject.success(function(data, status, headers, config){
+				$scope.postSuccess = "Posted Sucessfully";
+			});
+			postNewProject.error(function(data, status, headers, config){
+				$scope.postSuccess = "Failed to post";
+			});
+	};
+
+	//"A project cannot be updated/added if the underlying road does not exist.
 
 
+	/****************************************************
+		Close all forms and remove overlay
+	****************************************************/
 
+	$scope.closeForm = function() {
+		$scope.newRoad = false;
+		$scope.newProject = false;
+		$scope.editRoad = false;
+		$scope.editProject = false;
+		$scope.roadsAlert = false;
+		$scope.projectsAlert = false;
+		document.getElementById('overlay').remove();
+	};
+	/****************************************************
+		Deleting roads/projects
+	****************************************************/
+
+	$scope.deleteRoadsAlert = function(){
+		if($scope.roadsAlert == false){
+				var overlay = document.createElement('div');
+				overlay.id = 'overlay';
+				document.getElementById('mainMenu').appendChild(overlay);
+				$scope.roadsAlert = true;
+			}
+		else if ($scope.roadsAlert == true) {
+			$scope.roadsAlert = false;
+		}
+	}
+
+	$scope.deleteRoad = function(Roads) {
+			$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + Roads.ID + '.json');
+			$scope.closeForm();
+	}
+
+	$scope.deleteProjectsAlert = function(){
+		if($scope.projectsAlert == false){
+				var overlay = document.createElement('div');
+				overlay.id = 'overlay';
+				document.getElementById('mainMenu').appendChild(overlay);
+				$scope.projectsAlert = true;
+			}
+		else if ($scope.projectsAlert == true) {
+			$scope.projectsAlert = false;
+		}
+	}
+
+	$scope.deleteProject = function(Projects) {
+		$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.project.' + Projects.ID + '.json');
+		$scope.closeForm();
+	}
 });

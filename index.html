@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<title>TRACK</title>
 		<link href="https://fonts.googleapis.com/css?family=Carter+One|Handlee" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 		<script src="script.js"></script>
@@ -18,7 +19,9 @@
 
 
 		<!----------------------
+		------------------------
 				Login
+		------------------------
 		----------------------->
 		<div ng-show="login">
 			<form>
@@ -27,60 +30,139 @@
 			    <label>Password</label>
 			    <input type="password" placeholder="Enter Password" ng-model="password" id="loginForm" required> <br>
 			    <button ng-click="checkLogin()" type="submit"> Login </button>
-			    <p>{{feedback}}</p>
+			    <p>{{loginFeedback}}</p>
 			</form>
 		</div>
 
 
 		<!----------------------
+		------------------------
 				Main
+		------------------------
 		----------------------->
-		<div ng-show="menu">
+		<div id="mainMenu" ng-show="menu">
 			<p>Hello {{name}}!</p>
 
 			<!----------------------
 					Roads
 			----------------------->
 			<button ng-click = "showRoadList()">See Roads</button>
+			<button ng-show="addRoadButton" ng-click="showNewRoadForm()">Add New Road</button><br>
+
 			<div ng-show="roadList">
-				Road ID:{{ID}}<br>
-				Code: {{roadName}}<br>
-				Type: {{roadType}}<br>
-				Section: {{section}}<br>
-				Location: {{location}}<br>
-				GPS: {{latLon}}
+
+				<!-- Road List: -->
+				<ul>
+					<li ng-repeat="Roads in myRoads">
+						# {{Roads.ID}} {{Roads.Code}}
+						<button class="deleteButton" ng-click="deleteRoadsAlert()">
+							<i class="material-icons">delete</i>
+							<!-- set up alert to make sure doesn't delete automatically-->
+						</button>
+						<div id="deleteAlert" ng-show="roadsAlert">
+							Are you sure you want to delete this road?<br>
+							<button ng-click="deleteRoad(Roads)">OK</button>
+							<button ng-click="closeForm()">Cancel</button>
+						</div>
+
+						<button class="infoButton" ng-click = "editRoadInfo(Roads)"> Info </button>
+					</li>
+				</ul>
+
+				<!-- Modify road form: -->
+				<div id="editRoadForm" ng-show="editRoad">
+					Road ID<br><input type="text" placeholder="Road ID" ng-model="ID"><br>
+					Code<br><input type="text" placeholder="Road Name" ng-model="roadName"><br>
+					Type<br><input type="text" placeholder="Road Type" ng-model="roadType"><br>
+					Section<br><input type = text placeholder="Road Section" ng-model="section"><br>
+					Location<br><input type = text placeholder="Road Location" ng-model="location"><br>
+					GPS<br><input type = text placeholder="Latitude, Longitude" ng-model="latLon"><br>
+					<button ng-show="saveRoadButton" ng-click="addNewRoad()">Save Road</button>
+					<button ng-click="closeForm()" type="cancel"> Cancel </button>
+				</div>
 			</div>
 
-			<button ng-click = "showNewRoadForm()">Add New Road</button><br>
-			<div ng-show="newRoad">
-				<label>ID</label>
-			    <input type="text" placeholder="Road ID" ng-model="a" id="" required> <br>
-			    <label>Name</label>
-			    <input type="text" placeholder="Road Name" ng-model="a" id="" required> <br>
-			    <label>Type</label>
-			    <input type="text" placeholder="Road Type" ng-model="a" id="" required> <br>
-			    <label>Section</label>
-			    <input type="text" placeholder="Road Section" ng-model="a" id="" required> <br>
-			    <label>Location</label>
-			    <input type="text" placeholder="Road Location" ng-model="a" id="" required> <br>
-			    <label>Coordinates</label>
-			    <input type="text" placeholder="Latitude" ng-model="a" id="" required> <br>
-			    <input type="text" placeholder="Longitude" ng-model="a" id="" required> <br>
-			    <button ng-click="checkLogin()" type="submit"> OK </button>
+			<!-- Add road form: -->
+			<div id="newRoadForm" ng-show="newRoad">
+				<label>ID</label><br>
+			    <input type="text" placeholder="Road ID" ng-model="ID" required> <br>
+			    <label>Name</label><br>
+			    <input type="text" placeholder="Road Name" ng-model="roadName" required> <br>
+			    <label>Type</label><br>
+			    <input type="text" placeholder="Road Type" ng-model="roadType" required> <br>
+			    <label>Section</label><br>
+			    <input type="text" placeholder="Road Section" ng-model="section" required> <br>
+			    <label>Location</label><br>
+			    <input type="text" placeholder="Road Location" ng-model="location"required> <br>
+			    <label>Coordinates</label><br>
+			    <input type="text" placeholder="Latitude, Longitude" ng-model="latLon"required> <br>
+			    <button ng-click="addNewRoad()" type="submit"> OK </button>
+			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
 			</div>
 
 			<!----------------------
 					Projcts
 			----------------------->
 			<button ng-click = "showProjectList()">See Projects</button>
-			<button>Add New Project</button><br>
-			<div ng-show="projectList">
-				Project ID:{{ID}}<br>
-				Road ID: {{roadID}}<br>
-				Project Type: {{projectType}}<br>
-				Status: {{status}}<br>
-			</div>
-		</div>
+			<button ng-show="addProjectButton" ng-click="showNewProjectForm()">Add New Project</button><br>
 
+			<div ng-show="projectList">
+
+				<!-- Project list -->
+				<ul>
+					<li ng-repeat="Projects in myProjects">Project ID: {{Projects.ID}}
+						<button class="deleteButton" ng-click="deleteProjectsAlert()">
+							<i class="material-icons">delete</i>
+							<!-- set up alert to make sure doesn't delete automatically-->
+						</button>
+						<div id="deleteAlert" ng-show="projectsAlert">
+							Are you sure you want to delete this project?<br>
+							<button ng-click="deleteProject(Projects)">OK</button>
+							<button ng-click="closeForm()">Cancel</button>
+						</div>
+						<button class="infoButton" ng-click = "editProjInfo(Projects)"> Info </button>
+					</li>
+				</ul>
+
+				<!-- Modify project -->
+				<div id="editProjectForm" ng-show="editProject">
+					{{postSuccess}}
+					Project ID<br><input placeholder="Project ID" type=text ng-model="projID"><br>
+					Road ID<br><input placeholder="Road ID" type=text ng-model="roadID"><br>
+					Project Type<br><input placeholder="E.g. Resurfacing" type=text ng-model="projType"><br>
+					Status<br><input placeholder="Open/Closed" type=text ng-model="status"><br>
+
+					Start Date<br><input type=date ng-model="startdate"><br>
+					<div class=contractorForm ng-show="contractorRead">
+						Contractor<br><input type=text ng-model="contractor" readonly><br>
+					</div>
+					<div class=contractorForm ng-show="contractorEdit">
+						Contractor<br><input type=text ng-model="contractor"><br>
+					</div>
+					Problems<br><input type = text ng-model="problems"><br>
+					Comments<br><input type = text ng-model="comments"><br>
+					Works<br><input type = text ng-model="works"><br><br>
+					<button  ng-show="saveProjectButton" ng-click="addNewProject()">Save Project</button>
+					<button ng-click="closeForm()" type="cancel"> Cancel </button>
+				</div>
+			</div>
+
+			<!-- Add project: -->
+			<div id="newProjectForm" ng-show="newProject">
+				<label>ID</label><br>
+			    <input type="text" placeholder="Project ID" ng-model="projID" required> <br>
+			    <label>Associated Road</label><br>
+			    <input type="text" placeholder="Road ID" ng-model="roadID" required> <br>
+			    <label>Type</label><br>
+			    <input type="text" placeholder="E.g. Resurfacing" ng-model="projType" required> <br>
+			    <label>Start Date</label><br>
+			    <input type="date" ng-model="startDate" required> <br>
+			    <label>Contractor</label><br>
+			    <input type="text" ng-model="contractor" placeholder="Contractor Company" required> <br>
+			    <button ng-click="addNewProject()" type="submit"> OK </button>
+			    <button ng-click="closeForm()" type="cancel"> Cancel </button>
+			</div>
+			<button ng-click="logOut()">Log Out</button>
+		</div>
 	</body>
 </html>
