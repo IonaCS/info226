@@ -74,6 +74,12 @@ li {
 }
 
 
+.IDResponse {
+	font-size: 15px;
+	margin: 1px;
+}
+
+
 
 /*** Info/delete buttons: ***/
 .infoButton, .deleteButton {

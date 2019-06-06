@@ -100,27 +100,27 @@ app.controller('mainCtrl', function($scope, $http) {
 		//Get project info from server:
 		var project_dir = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
 			$http.get(project_dir).then(function sucessCall(response) {
-					$scope.myProjects = response.data.Projects;
-					if ($scope.projectList == false) {
-						$scope.projectList = true;
-						// User permissions:
-						if (userType == 'manager') {
-							$scope.saveProjectButton = true;
-							$scope.deleteProjectButton = true;
-							$scope.contractorRead = true;
-						} else if (userType == 'inspector'){
-							$scope.saveProjectButton = true;
-							$scope.contractorRead = true;
-						} else if (userType =='contractor') {
-							$scope.contractorEdit = true;
-						}
-					} else if ($scope.projectList == true) {
-						$scope.projectList = false;
+				$scope.myProjects = response.data.Projects;
+				if ($scope.projectList == false) {
+					$scope.projectList = true;
+					// User permissions:
+					if (userType == 'manager') {
+						$scope.saveProjectButton = true;
+						$scope.deleteProjectButton = true;
+						$scope.contractorEdit = true;
+					} else if (userType == 'inspector'){
+						$scope.saveProjectButton = true;
+						$scope.contractorRead = true;
+					} else if (userType =='contractor') {
+						$scope.contractorEdit = true;
 					}
-				}, function errorCall() {
-					$scope.feedback = "Failed to load file";
+				} else if ($scope.projectList == true) {
+					$scope.projectList = false;
 				}
-			);
+			}, function errorCall() {
+				$scope.feedback = "Failed to load file";
+			}
+		);
 	};
 
 
@@ -214,29 +214,48 @@ app.controller('mainCtrl', function($scope, $http) {
 	};
 
 	$scope.addNewProject = function() {
-			var projectObj = {
-				ID: $scope.projID,
-				Road: $scope.roadID,
-				Name: $scope.projType,
-				Status: $scope.status,
-				StartDate: $scope.startdate,
-				Contractor: $scope.contractor,
-				Problems: $scope.problems,
-				Comments: $scope.comments,
-				Works: $scope.works
-			};
-			$scope.closeForm();
-			// This section will post new data to the JSON file on the server
-			var postNewProject = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.project.json', projectObj);
-			postNewProject.success(function(data, status, headers, config){
-				$scope.postSuccess = "Posted Sucessfully";
-			});
-			postNewProject.error(function(data, status, headers, config){
-				$scope.postSuccess = "Failed to post";
-			});
+
+		var projectObj = {
+			ID: $scope.projID,
+			Road: $scope.roadID,
+			Name: $scope.projType,
+			Status: $scope.status,
+			StartDate: $scope.startdate,
+			Contractor: $scope.contractor,
+			Problems: $scope.problems,
+			Comments: $scope.comments,
+			Works: $scope.works
+		};
+		
+		// $scope.repeatProjID = null;
+		// var project_list = "https://track.sim.vuw.ac.nz/api/eagletyle/project_dir.json";
+		// var road_list = "https://track.sim.vuw.ac.nz/api/eagletyle/road_dir.json";
+		// $http.get(project_list).then (function (projResponse) {
+		// 	$http.get(road_list).then (function (roadResponse) {
+		//     num_of_projects = projResponse.data.Projects.length
+		//     num_of_roads = roadResponse.data.Roads.length
+		// 	    for (var i = 0; i < num_of_projects; i++) {
+		// 			if ($scope.projID == projResponse.data.Projects[i].ID) {
+		//   				$scope.repeatProjID = "That ID is already in use."
+		//   			};
+		// 		};
+		//     	for (var j = 0; j < num_of_roads; j++) {
+		//     		$scope.repeatRoadID = "This ID doesn't exist."
+		//     		if ($scope.roadID == roadResponse.data.Roads[j].ID) {
+		// 				console.log($scope.roadID)
+		//     			console.log(roadResponse.data.Roads[j].ID)
+		// 	    		$scope.repeatRoadID = null;
+		// 			};
+	 //  		 	};
+	 //  		});
+		// });
+	  	$scope.closeForm();
+
+		// This section will post new data to the JSON file on the server
+		var postNewProject = $http.post('https://track.sim.vuw.ac.nz/api/eagletyle/update.project.json', projectObj);
+		
 	};
 
-	//"A project cannot be updated/added if the underlying road does not exist.
 
 
 	/****************************************************
@@ -252,41 +271,26 @@ app.controller('mainCtrl', function($scope, $http) {
 		$scope.projectsAlert = false;
 		document.getElementById('overlay').remove();
 	};
+
+
 	/****************************************************
 		Deleting roads/projects
 	****************************************************/
 
-	$scope.deleteRoadsAlert = function(){
-		if($scope.roadsAlert == false){
-				var overlay = document.createElement('div');
-				overlay.id = 'overlay';
-				document.getElementById('mainMenu').appendChild(overlay);
-				$scope.roadsAlert = true;
-			}
-		else if ($scope.roadsAlert == true) {
-			$scope.roadsAlert = false;
-		}
-	}
-
 	$scope.deleteRoad = function(Roads) {
+		var confirm_delete = confirm("Are you sure?")
+		if (confirm_delete==true) {
 			$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.road.' + Roads.ID + '.json');
-			$scope.closeForm();
+		}
+		$scope.closeForm();
 	}
 
-	$scope.deleteProjectsAlert = function(){
-		if($scope.projectsAlert == false){
-				var overlay = document.createElement('div');
-				overlay.id = 'overlay';
-				document.getElementById('mainMenu').appendChild(overlay);
-				$scope.projectsAlert = true;
-			}
-		else if ($scope.projectsAlert == true) {
-			$scope.projectsAlert = false;
-		}
-	}
 
 	$scope.deleteProject = function(Projects) {
-		$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.project.' + Projects.ID + '.json');
+		var confirm_delete = confirm("Are you sure?")
+		if (confirm_delete==true) {
+			$http.delete('https://track.sim.vuw.ac.nz/api/eagletyle/delete.project.' + Projects.ID + '.json');
+		}
 		$scope.closeForm();
 	}
 });
