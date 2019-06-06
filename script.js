@@ -8,7 +8,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		Hides/shows different pages
 	****************************************************/
 	$scope.login = true;
-	$scope.menu = false;
+	$scope.menu = true;
 	$scope.roadList = false;
 	$scope.projectList = false;
 	$scope.newRoad = false;
